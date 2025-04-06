@@ -3,7 +3,7 @@ return {
 	build = ":TSUpdate",
 	config = function()
 
-		require 'nvim-treesitter.install'.prefer_git = false 
+		require 'nvim-treesitter.install'.prefer_git = false
 
 		require 'nvim-treesitter.install'.compilers = { 'zig' }
 
@@ -17,6 +17,10 @@ return {
 			-- Automatically install missing parsers when entering buffer
 			-- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
 			auto_install = true,
+
+            indent = {
+                enable = true
+            },
 
 			highlight = {
 

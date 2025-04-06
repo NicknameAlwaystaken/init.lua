@@ -66,6 +66,40 @@ return {
 						}
 					}
 				end,
+                ["pyright"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.pyright.setup({
+                        capabilities = capabilities,
+                        settings = {
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    useLibraryCodeForTypes = true,
+                                    diagnosticSeverityOverrides = {
+                                        reportMissingTypeStubs = false,
+                                    },
+                                },
+                            },
+                        },
+                    })
+                end,
+                ["basedpyright"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.basedpyright.setup({
+                        capabilities = capabilities,
+                        settings = {
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    useLibraryCodeForTypes = true,
+                                    diagnosticSeverityOverrides = {
+                                        reportMissingTypeStubs = false,
+                                    },
+                                },
+                            },
+                        },
+                    })
+                end,
 			}
 		})
 

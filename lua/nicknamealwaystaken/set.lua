@@ -1,4 +1,9 @@
-vim.opt.guicursor = ""
+-- Set locale to English
+vim.env.LANG = 'en_US.UTF-8'
+vim.env.LC_MESSAGES = 'en_US.UTF-8'
+
+
+vim.opt.guicursor = "n-v-c-sm:block-blinkon500-blinkoff500,i-ci-ve:block-blinkon500-blinkoff500"
 
 vim.opt.nu = true
 vim.opt.relativenumber = true

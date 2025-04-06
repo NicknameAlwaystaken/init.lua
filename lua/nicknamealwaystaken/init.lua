@@ -2,11 +2,41 @@ require('nicknamealwaystaken.set')
 require('nicknamealwaystaken.remap')
 require("nicknamealwaystaken.lazy_init")
 
+-- Call the ColorMyPencils function
+ColorMyPencils()
+
 local augroup = vim.api.nvim_create_augroup
 local NicknameAlwaysTakenGroup = augroup('NicknameAlwaysTakenGroup', {})
+local yank_group = augroup('HighlightYank', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 
+function R(name)
+    require("plenary.reload").reload_module(name)
+end
+
+vim.filetype.add({
+    extension = {
+        templ = 'templ',
+    }
+})
+
+autocmd({"BufWritePre"}, {
+    group = NicknameAlwaysTakenGroup,
+    pattern = "*",
+    command = [[%s/\s\+$//e]],
+})
+
+autocmd('TextYankPost', {
+    group = yank_group,
+    pattern = '*',
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = 'IncSearch',
+            timeout = 40,
+        })
+    end,
+})
 autocmd('LspAttach', {
     group = NicknameAlwaysTakenGroup,
     callback = function(e)
@@ -23,3 +53,7 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25

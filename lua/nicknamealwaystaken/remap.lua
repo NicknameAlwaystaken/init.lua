@@ -19,6 +19,13 @@ vim.keymap.set("n", "<leader>svwm", function()
     require("vim-with-me").StopVimWithMe()
 end)
 
+-- TIP: Disable arrow keys in normal mode
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+
+
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
@@ -43,15 +50,27 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
-)
-
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
+
 end)
+
+vim.api.nvim_set_keymap('n', '<leader>tt', '<cmd>lua vim.diagnostic.setloclist()<CR>:lopen<CR>', { noremap = true, silent = true })
+
+-- Create autocommand group to manage netrw custom mappings
+vim.api.nvim_create_augroup('NetrwMappings', { clear = true })
+
+-- Create autocmd to set key mappings for netrw
+vim.api.nvim_create_autocmd("FileType", {
+  group = 'NetrwMappings',
+  pattern = "netrw",
+  callback = function()
+    -- 'l' to open file or directory
+    vim.api.nvim_buf_set_keymap(0, 'n', 'l', '<Plug>NetrwLocalBrowseCheck', { noremap = true, silent = true })
+
+    -- 'h' to go back to parent directory
+    vim.api.nvim_buf_set_keymap(0, 'n', 'h', '<Plug>NetrwBrowseUpDir', { noremap = true, silent = true })  end
+})
