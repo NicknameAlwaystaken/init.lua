@@ -40,11 +40,3 @@ vim.opt.colorcolumn = "80"
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-<<<<<<< HEAD
-
-vim.opt.shell = "pwsh"
-vim.opt.shellcmdflag = "-NoLogo -NoProfile -Command "
-vim.opt.shellquote = ""
-vim.opt.shellxquote = "\""
-=======
->>>>>>> 0156fa2bc35a3327788d87ed068564607134523c
